@@ -33,13 +33,19 @@ import androidx.compose.ui.window.Dialog
 import com.google.firebase.Firebase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
 import com.google.firebase.database.getValue
 
 class MainActivity : ComponentActivity() {
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //val database = FirebaseDatabase.getInstance()
+        val database = Firebase.database("https://mobile-programming-class-default-rtdb.europe-west1.firebasedatabase.app")
         enableEdgeToEdge()
         setContent {
             MyApplicationTheme {
@@ -48,6 +54,8 @@ class MainActivity : ComponentActivity() {
                         name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
+                    AddWordButton(database = database)
+                    WordApp(database)
                 }
             }
         }
@@ -102,43 +110,16 @@ fun Buttons(name: String, modifier: Modifier = Modifier) {
 
             })
 
-
-
         }) {
             Text(text = "Click Me")
         }
-        var showDialog by remember { mutableStateOf(false) }
+
         Button(onClick = { /* Perform action */
-            showDialog = true
+
         }) {
             Text(text = "Click Me")
         }
-        if (showDialog) {
-            Dialog(onDismissRequest = { showDialog = false }) {
-                Surface(
-                    shape = MaterialTheme.shapes.medium,
-                    color = MaterialTheme.colorScheme.background,
-                    modifier = Modifier.padding(16.dp)
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .padding(16.dp)
-                            .fillMaxWidth()
-                    ) {
-                        Text(
-                            text = "Dialog Title",
-                            style = MaterialTheme.typography.titleLarge,
-                            modifier = Modifier.padding(bottom = 8.dp)
-                        )
-                        Text("This is the content of the dialog.")
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Button(onClick = { showDialog = false }) {
-                            Text(text = "Close")
-                        }
-                    }
-                }
-            }
-        }
+
     }
 }
 
