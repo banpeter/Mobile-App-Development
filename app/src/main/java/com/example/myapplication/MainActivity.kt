@@ -50,12 +50,14 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplicationTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Buttons(
+                    Greeting(
                         name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
                     AddWordButton(database = database)
-                    WordApp(database)
+                    //WordApp(database)
+                    //WordApp2(database)
+                    WordApp3(database)
                 }
             }
         }
@@ -65,7 +67,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
-        text = "Hello $name!",
+        text = "",
         modifier = modifier
     )
 }
