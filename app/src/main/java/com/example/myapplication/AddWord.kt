@@ -27,7 +27,7 @@ fun WordPairScreen(database: FirebaseDatabase) {
 }
 
 @Composable
-fun AddWordButton(database: FirebaseDatabase) {
+fun AddWordButton(database: FirebaseDatabase, modifier: Modifier = Modifier) {
     var showDialog by remember { mutableStateOf(false) }
     var word1 by remember { mutableStateOf("") }
     var word2 by remember { mutableStateOf("") }
@@ -37,11 +37,11 @@ fun AddWordButton(database: FirebaseDatabase) {
             Surface(
                 shape = MaterialTheme.shapes.medium,
                 color = MaterialTheme.colorScheme.background,
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(8.dp)
             ) {
                 Column(
                     modifier = Modifier
-                        .padding(16.dp)
+                        .padding(8.dp)
                         .fillMaxWidth()
                 ) {
                     Text(
@@ -90,11 +90,12 @@ fun AddWordButton(database: FirebaseDatabase) {
 
     Button(
         onClick = { showDialog = true },
-        modifier = Modifier.padding(16.dp)
+        modifier = modifier // Use the passed modifier for positioning
     ) {
         Text("Add Word Pair")
     }
 }
+
 
 fun submitWordPair(database: FirebaseDatabase, word1: String, word2: String) {
     val wordPair = mapOf("word1" to word1, "word2" to word2)

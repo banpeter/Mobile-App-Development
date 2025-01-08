@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -39,25 +40,35 @@ import com.google.firebase.database.database
 import com.google.firebase.database.getValue
 
 class MainActivity : ComponentActivity() {
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //val database = FirebaseDatabase.getInstance()
         val database = Firebase.database("https://mobile-programming-class-default-rtdb.europe-west1.firebasedatabase.app")
         enableEdgeToEdge()
         setContent {
             MyApplicationTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                    AddWordButton(database = database)
-                    //WordApp(database)
-                    //WordApp2(database)
-                    WordApp3(database)
+                Scaffold(
+                    modifier = Modifier.fillMaxSize()
+                ) { innerPadding ->
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding)
+                    ) {
+                        Greeting(
+                            name = "Android",
+                            modifier = Modifier.align(Alignment.TopStart) // Adjust if needed
+                        )
+
+                        // AddWordButton aligned to bottom-right
+                        AddWordButton(
+                            database = database,
+                            modifier = Modifier.align(Alignment.BottomEnd)
+                                .padding(16.dp) // Padding from edges
+                        )
+
+                        // Other composables
+                        WordApp3(database)
+                    }
                 }
             }
         }
